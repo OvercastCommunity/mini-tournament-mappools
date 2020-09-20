@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<map proto="1.4.2">
+<time overtime="1m" max-overtime="15m">30m</time>
+<name>The Towers TE</name>
+<version>1.1.1</version>
+<objective>Get 10 points to win.</objective>
+<authors>
+    <author uuid="f48faa1f-aab2-44d5-94d2-8b0404f3a227"/> <!-- Quijx -->
+</authors>
+<teams>
+    <team id="blue" color="blue" min="5" max="5" max-overfill="5">Blue</team>
+    <team id="red"  color="red"  min="5" max="5" max-overfill="5">Red</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="8" amount="8">baked potato</item>
+        <item slot="9" amount="1">lapis block</item>
+        <effect duration="oo" amplifier="100">regeneration</effect>
+        <effect duration="oo" amplifier="100">damage resistance</effect>
+        <effect duration="oo" amplifier="2">speed</effect>
+    </kit>
+    <kit id="kit-red" parents="spawn">
+        <helmet color="cd0000">leather helmet</helmet>
+        <chestplate color="cd0000">leather chestplate</chestplate>
+        <leggings color="cd0000" enchantment="protection projectile:2">leather leggings</leggings>
+        <boots color="cd0000">leather boots</boots>
+    </kit>
+    <kit id="kit-blue" parents="spawn">
+        <helmet color="0066cc">leather helmet</helmet>
+        <chestplate color="0066cc">leather chestplate</chestplate>
+        <leggings color="0066cc" enchantment="protection projectile:2">leather leggings</leggings>
+        <boots color="0066cc">leather boots</boots>
+    </kit>
+    <kit id="kit-give" force="true">
+        <effect duration="3" amplifier="100">regeneration</effect>
+        <effect duration="3" amplifier="100">damage resistance</effect>
+        <effect duration="1" amplifier="2">speed</effect>
+        <effect duration="4" amplifier="120">haste</effect>
+    </kit>
+    <kit id="void-death" force="true">
+        <health>1</health>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue" kit="kit-blue" region="blue-spawn-room" yaw="-90"/>
+    <spawn team="red" kit="kit-red" region="red-spawn-room" yaw="90"/>
+    <default yaw="180">
+        <regions>
+            <point>0,197,1152</point>
+        </regions>
+    </default>
+</spawns>
+<score>
+    <kills>0</kills>
+    <deaths>0</deaths>
+    <limit>10</limit>
+    <box value="1" region="boxes"/>
+</score>
+<portals>
+    <portal region="box-blue" x="@84" y="@193" z="@1152" yaw="@90"/>
+    <portal region="box-red" x="@-84" y="@193" z="@1152" yaw="@-90"/>
+    <portal y="@-50" region="below-169" sound="false"/>
+    <portal y="@192.3" region="spawn-portal-blue" sound="false" filter="only-blue"/>
+    <portal y="@192.3" region="spawn-portal-red" sound="false" filter="only-red"/>
+</portals>
+<maxbuildheight>212</maxbuildheight>
+<regions>
+    <apply block="never" region="below-172" message="You have reached the minimum build height."/>
+    <apply block="never" region="spawn-regions" message="You cannot modify the spawn."/>
+    <apply enter="only-blue" block="only-blue" region="box-region-red" message="This region is disabled for your team."/>
+    <apply use="only-blue" region="box-region-red"/>
+    <apply enter="only-red" block="only-red" region="box-region-blue" message="This region is disabled for your team."/>
+    <apply use="only-red" region="box-region-blue"/>
+    <apply block="any-interact-blue" use="any-interact-blue" region="chest-room-blue" message="You cannot use or modify this chest room."/>
+    <apply block="any-interact-red"   use="any-interact-red"  region="chest-room-red"  message="You cannot use or modify this chest room."/>
+    <apply kit="void-death" region="below-169"/>
+    <apply kit="kit-give" region="above-169"/>
+    <apply velocity="0.0,40.0,0.0" region="spawn-jumps"/>
+    <apply block="never" region="not-field" message="This region outside the playing field."/>
+    <negative id="below-169">
+        <above id="above-169" y="169"/>
+    </negative>
+    <negative id="below-172">
+        <above id="above-172" y="172"/>
+    </negative>
+    <point id="blue-spawn-room">-145.5,146.2,1152.5</point>
+    <point id="red-spawn-room">146.5,146.2,1152.5</point>
+    <union id="boxes">
+        <cuboid id="box-blue" min="-85,201,1154" max="-82,200,1151"/>
+        <cuboid id="box-red" min="86,201,1154" max="83,200,1151"/>
+    </union>
+    <negative id="not-field">
+        <rectangle id="field" min="-89,1125" max="90,1180"/>
+    </negative>
+    <cuboid id="box-region-blue" min="-87,oo,1149" max="-80,199,1156"/>
+    <cuboid id="box-region-red" min="88,oo,1149" max="81,199,1156"/>
+    <union id="spawn-regions">
+        <cuboid id="spawn-region-blue" min="-87,172,1149" max="-80,195,1156"/>
+        <cuboid id="spawn-region-red" min="88,172,1149" max="81,195,1156"/>
+    </union>
+    <cuboid id="spawn-portal-blue" min="-85,180,1151" max="-81,189,1154"/>
+    <cuboid id="spawn-portal-red" min="86,180,1151" max="82,189,1154"/>
+    <cuboid id="chest-room-blue" min="-66,191,1164" max="-59,196,1155"/>
+    <cuboid id="chest-room-red" min="67,191,1141" max="60,196,1150"/>
+    <union id="spawn-jumps">
+        <cuboid id="spawn-jump-blue" min="-85,146,1151" max="-82,148,1154"/>
+        <cuboid id="spawn-jump-red" min="86,146,1151" max="83,148,1154"/>
+        <cuboid id="spawn-jump-blue-1" min="-85,150,1151" max="-82,158,1154"/>
+        <cuboid id="spawn-jump-red-1" min="86,150,1151" max="83,158,1154"/>
+        <cuboid id="spawn-jump-blue-2" min="-85,165,1151" max="-82,166,1154"/>
+        <cuboid id="spawn-jump-red-2" min="86,165,1151" max="83,166,1154"/>
+    </union>
+	<point id="north-spawn-region">0.5,199.5,1131.5</point>
+	<point id="south-spawn-region">0.5,199.5,1173.5</point>
+</regions>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <any id="inventories">
+        <material>chest</material>
+        <material>ender chest</material>
+        <material>trapped chest</material>
+        <material>furnace</material>
+        <material>burning furnace</material>
+        <material>beacon</material>
+        <material>anvil</material>
+        <material>enchantment table</material>
+        <material>dropper</material>
+        <material>hopper</material>
+        <material>dispenser</material>
+        <material>jukebox</material>
+        <material>workbench</material>
+    </any>
+    <deny id="any-interact-blue">
+        <all>
+            <filter id="only-red"/>
+            <filter id="inventories"/>
+        </all>
+    </deny>
+    <deny id="any-interact-red">
+        <all>
+            <filter id="only-blue"/>
+            <filter id="inventories"/>
+        </all>
+    </deny>
+</filters>
+<spawners delay="5s" player-region="everywhere" max-entities="64">
+    <spawner id="south-spawner" spawn-region="north-spawn-region">
+		<item amount="1" material="iron ingot"/>
+        <item amount="1" material="exp bottle"/>
+    </spawner>
+	<spawner id="north-spawner" spawn-region="south-spawn-region">
+		<item amount="1" material="iron ingot"/>
+		<item amount="1" material="exp bottle"/>
+    </spawner>
+</spawners>
+<toolrepair>
+    <tool>bow</tool>
+    <tool>stone sword</tool>
+    <tool>leather helmet</tool>
+    <tool>leather chestplate</tool>
+    <tool>leather leggings</tool>
+    <tool>leather boots</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+</itemremove>
+<mobs>
+    <filter>
+        <all>
+            <spawn>spawner egg</spawn>
+        </all>
+    </filter>
+</mobs>
+<respawn delay="3.5s" blackout="true" auto="true"/>
+</map>
